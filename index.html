@@ -10,10 +10,22 @@
     <p class="text"></p>
     <script>
         Telegram.WebApp.ready();
-        const urlParams = new URLSearchParams(window.location.search);
+         // Get user information from the URL
+         const urlParams = new URLSearchParams(window.location.search);
         const user = JSON.parse(urlParams.get('user'));
-        document.querySelector('.text').innerHTML=user.id;
 
+        // Create greeting message
+        let greetingMessage = "Hello, User!";
+        let usernameMessage = "";
+
+        if (user && user.username) {
+            greetingMessage = "Hello!";
+            usernameMessage = `@${user.username}`; // Prepare the username message
+        }
+
+        // Display the greeting message
+        document.getElementById('greeting').innerText = greetingMessage;
+        document.getElementById('username').innerText = usernameMessage; // Display the username in the <p> tag
     </script>
 </body>
 </html>
