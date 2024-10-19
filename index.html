@@ -10,26 +10,7 @@
     <p id="username"></p> 
 
     <script>
-        if (typeof Telegram !== 'undefined') {
-            // Get user information from the URL
-            const urlParams = new URLSearchParams(window.location.search);
-            const user = JSON.parse(urlParams.get('user'));
-
-            // Create greeting message
-            let greetingMessage = "Hello, User!";
-            let usernameMessage = "";
-
-            if (user && user.username) {
-                greetingMessage = "Hello!";
-                usernameMessage = `@${user.username}`; // Prepare the username message
-            }
-
-            // Display the greeting message
-            document.getElementById('greeting').innerText = greetingMessage;
-            document.getElementById('username').innerText = usernameMessage; // Display the username in the <p> tag
-        } else {
-            console.error("Telegram object is not available. Make sure to open this app from Telegram.");
-        }
+        document.getElementById('username').innerHTML=Telegram
     </script>
 </body>
 </html>
