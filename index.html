@@ -7,25 +7,29 @@
 </head>
 <body>
     <h1 id="greeting">Hello!</h1>
-    <p id="username"></p> <!-- <p> tag for the username -->
+    <p id="username"></p> 
+
     <script>
-        Telegram.WebApp.ready();
-         // Get user information from the URL
-         const urlParams = new URLSearchParams(window.location.search);
-        const user = JSON.parse(urlParams.get('user'));
+        if (typeof Telegram !== 'undefined') {
+            // Get user information from the URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const user = JSON.parse(urlParams.get('user'));
 
-        // Create greeting message
-        let greetingMessage = "Hello, User!";
-        let usernameMessage = "";
+            // Create greeting message
+            let greetingMessage = "Hello, User!";
+            let usernameMessage = "";
 
-        if (user && user.username) {
-            greetingMessage = "Hello!";
-            usernameMessage = `@${user.username}`; // Prepare the username message
+            if (user && user.username) {
+                greetingMessage = "Hello!";
+                usernameMessage = `@${user.username}`; // Prepare the username message
+            }
+
+            // Display the greeting message
+            document.getElementById('greeting').innerText = greetingMessage;
+            document.getElementById('username').innerText = usernameMessage; // Display the username in the <p> tag
+        } else {
+            console.error("Telegram object is not available. Make sure to open this app from Telegram.");
         }
-
-        // Display the greeting message
-        document.getElementById('greeting').innerText = greetingMessage;
-        document.getElementById('username').innerText = usernameMessage; // Display the username in the <p> tag
     </script>
 </body>
 </html>
