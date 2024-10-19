@@ -8,7 +8,7 @@
 </head>
 <body>
     <main class="main">
-        <h1 class="main-header">Вакансии</h1>
+        <h1 class="main-header">Специалисты</h1>
         <div class="main-search">
             <input type="text" class="main-input" placeholder="Искать людей">
             <button class="input-btn">Искать</button>
@@ -17,6 +17,113 @@
             <input type="text" class="main-prompt" placeholder="Условия для сортировки">
             <button class="prompt-btn">Задать условия</button>
         </div>
+        <div class="cards">
+            <div class="card">
+                <h2 class="card-name">
+                    Михаил Петрович
+                </h2>
+                <p class="card-info">
+                    Web-Разработчик. 5 лет стаж. Работал в Гугл.
+                </p>
+            </div>
+        
+            <div class="card">
+                <h2 class="card-name">
+                    Анна Смирнова
+                </h2>
+                <p class="card-info">
+                    Дизайнер UX/UI. 3 года стаж. Работала в Яндекс.
+                </p>
+            </div>
+        
+            <div class="card">
+                <h2 class="card-name">
+                    Иван Иванов
+                </h2>
+                <p class="card-info">
+                    DevOps инженер. 7 лет стаж. Работал в Amazon.
+                </p>
+            </div>
+        
+            <div class="card">
+                <h2 class="card-name">
+                    Ольга Николаева
+                </h2>
+                <p class="card-info">
+                    Специалист по данным. 4 года стаж. Работала в Facebook.
+                </p>
+            </div>
+        
+            <div class="card">
+                <h2 class="card-name">
+                    Алексей Сидоров
+                </h2>
+                <p class="card-info">
+                    Инженер по безопасности. 6 лет стаж. Работал в Microsoft.
+                </p>
+            </div>
+        
+            <div class="card">
+                <h2 class="card-name">
+                    Елена Орлова
+                </h2>
+                <p class="card-info">
+                    Разработчик мобильных приложений. 5 лет стаж. Работала в Apple.
+                </p>
+            </div>
+        </div>
+        <div class="cards2"></div>
     </main>
+    <script>
+        const cards=document.querySelectorAll('.card')
+        const searchInput=document.querySelector('.main-input')
+        const searchBtn=document.querySelector('.input-btn')
+        const promptInput=document.querySelector('.main-prompt')
+        const promptBtn=document.querySelector('.prompt-btn')
+        
+        searchBtn.addEventListener('click', ()=>{
+            for(let i=0;i<cards.length;i++){
+                if(cards[i].children[0].innerHTML.toLowerCase().includes(searchInput.value.toLowerCase())){
+                    cards[i].style.display='block'
+                }
+                else{
+                    cards[i].style.display='none'
+                }
+            }
+        });
+
+        promptBtn.addEventListener('click', async function () {
+            const conditions = promptInput.value;
+
+            if (conditions) {
+                await analyze(conditions);
+            }
+        });
+
+        async function analyze(conditions) {
+            const specialists = Array.from(cards).map(card => {
+                return {
+                    name: card.querySelector('.card-name').textContent.trim(),
+                    info: card.querySelector('.card-info').textContent.trim(),
+                };
+            });
+            console.log(JSON.stringify(specialists))
+            console.log(conditions)
+            const response = await fetch('http://localhost:3000/get-symptoms-analysis', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ conditions: conditions, specialists: specialists }),
+            });
+
+            const data = await response.json();
+            document.querySelector('.cards2').innerHTML=data.analysis.slice(8,data.analysis.length-3);
+            for (let i = 0; i < cards.length; i++) {
+                cards[i].style.display = 'none';
+            }
+        }
+
+    </script>
 </body>
 </html>
