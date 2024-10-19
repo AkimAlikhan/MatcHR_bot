@@ -4,13 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Telegram Mini App</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1 id="greeting">Hello!</h1>
-    <p id="username"></p> 
-
-    <script>
-        document.getElementById('username').innerHTML=Telegram
-    </script>
+    <main class="main">
+        <h1 class="main-header">Вакансии</h1>
+        <div class="main-search">
+            <input type="text" class="main-input" placeholder="Искать людей">
+            <button class="input-btn">Искать</button>
+        </div>
+        <div class="main-search">
+            <input type="text" class="main-prompt" placeholder="Условия для сортировки">
+            <button class="prompt-btn">Задать условия</button>
+        </div>
+    </main>
 </body>
 </html>
