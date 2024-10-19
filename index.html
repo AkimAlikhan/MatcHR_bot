@@ -7,16 +7,13 @@
 </head>
 <body>
     <h1>Welcome to My Mini App!</h1>
-    <button id="sendData">Send Data to Telegram</button>
-
+    <p class="text"></p>
     <script>
-        // Получаем данные от Telegram
         Telegram.WebApp.ready();
+        const urlParams = new URLSearchParams(window.location.search);
+        const user = JSON.parse(urlParams.get('user'));
+        document.querySelector('.text').innerHTML=user;
 
-        // Отправляем данные обратно в Telegram, когда пользователь нажимает кнопку
-        document.getElementById('sendData').addEventListener('click', function() {
-            Telegram.WebApp.sendData("Some data to send back"); // Например, отправляем текст
-        });
     </script>
 </body>
 </html>
