@@ -12,7 +12,7 @@
         Telegram.WebApp.ready();
         const urlParams = new URLSearchParams(window.location.search);
         const user = JSON.parse(urlParams.get('user'));
-        document.querySelector('.text').innerHTML=user;
+        document.querySelector('.text').innerHTML=user.id;
 
     </script>
 </body>
