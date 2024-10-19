@@ -6,7 +6,11 @@ const app = express();
 const port = 3000;
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: 'https://matc-hr-mn01t710l-alikhans-projects-f1564e51.vercel.app',
+    methods: ['GET', 'POST'],
+    credentials: true // Allow cookies to be sent
+}));
 
 require('dotenv').config();
 
